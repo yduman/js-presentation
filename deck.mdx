@@ -128,6 +128,46 @@ backend/
 
 ---
 
+## Scenario
+
+- we will manage users
+- usage of authentication and private routes
+- usage of MongoDB and Mongoose ODM
+
+---
+
+## Our API
+
+|HTTP|Endpoint|Description|
+|---|---|---|
+|**GET**|/api/user/me|get logged in user|
+|**GET**|/api/user/:username|get user by username|
+|**POST**|/api/user/|user registration|
+|**POST**|/api/user/login|user login|
+|**PATCH**|/api/user/me|reset username|
+|**DELETE**|/api/user/:id|delete user by ID|
+|**DELETE**|/api/user/logout|user logout|
+
+---
+
+## Setup
+
+- install MongoDB and Robo3T
+- create a folder where your backend will live in
+- run `yarn init` inside
+- run `yarn add express body-parser mongodb mongoose lodash jsonwebtoken`
+- run `yarn add --dev nodemon chai mocha supertest`
+- create a `src/` folder
+- create your root file, e.g. `server.js`
+- create your `start` script in `package.json`
+
+---
+
+- create `config/config.js`, to set some environment variables
+- create `db/mongoose.js`, to configure mongoose
+
+---
+
 ## Testing your API
 
 ---
