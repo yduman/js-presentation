@@ -1,10 +1,10 @@
 export { default as theme } from "./theme";
 
-# Develop Applications with Express + React
+# Workflow with Express & React
 
 ---
 
-## Project Structure
+## Package Manager
 
 - Choose your package manager
 - either `npm` or `yarn`
@@ -13,9 +13,9 @@ export { default as theme } from "./theme";
 
 ---
 
-### Start a Project
+## Bootstrapping
 
-- run `yarn init` on an empty folder, this will generate `package.json`
+- run `yarn init`, this will generate `package.json`
 - add dependencies with `yarn add <library>`
 - add dev-dependencies with `yarn add --dev <library>`
 - run scripts with `yarn <script_name>`
@@ -24,7 +24,7 @@ export { default as theme } from "./theme";
 
 ---
 
-### Typical package.json
+## Typical ``package.json``
 
 ```json
 {
@@ -42,27 +42,27 @@ Read more at https://docs.npmjs.com/files/package.json
 
 ---
 
-### Lockfiles
+## Lockfiles
 
 - in order to get consistent installs across machines
 - lockfiles contain the exact version of each dependency
 - always commit to repository!
-- `yarn.lock` (yarn)
-- `package-lock.json` (npm)
+- `yarn.lock`
+- `package-lock.json`
 
 ---
 
-## Backend with Express
+# Backend with Express
 
 ---
 
-### Setup
+## Setup
 
 - `yarn init`
 - `yarn add express`
 - `yarn add --dev nodemon`
 
-```
+```json
 "scripts": {
   "start": "nodemon ./src/server.js"
 }
@@ -72,7 +72,7 @@ Read more at https://docs.npmjs.com/files/package.json
 
 ---
 
-### Hello World
+## Hello World
 
 
 ```javascript
@@ -93,47 +93,47 @@ server.listen(port, () => console.log(`Listening on port ${port}`));
 
 ---
 
-### Sample Project Structure
+## Sample Project Structure
 
 ```
 backend/
-  node_modules/
-  src/
-    public/
-    utils/
-    config/
-    db/
-    models/
-    server.js
-  package.json
-  processes.json
-  yarn.lock
+|__ node_modules/
+|__ src/
+|   |__ public/
+|   |__ utils/
+|   |__ config/
+|   |__ db/
+|   |__ models/
+|   |__ server.js
+|__ package.json
+|__ processes.json
+|__ yarn.lock
 ```
 
 ---
 
-### HTTP-Verbs
+## HTTP-Verbs
 
 |Verb|Description|
 |---|---|
-|GET|should only retrieve data|
-|POST|used to submit an entity to the specified resource|
-|PUT|replaces all current representations of the target resource with the request payload|
-|PATCH|used to apply partial modifications to a resource|
-|DELETE|deletes the specified resource|
+|**GET**|should only retrieve data|
+|**POST**|used to submit an entity to the specified resource|
+|**PATCH**|used to apply partial modifications to a resource|
+|**PUT**|replaces all current representations of <br/> the target resource with the request payload|
+|**DELETE**|deletes the specified resource|
 
 ---
 
-### Let's develop a REST API
+## Let's develop a REST API
 
 ---
 
-### Testing your API
+## Testing your API
 
 ---
 
-### Deploying your API
+## Deploying your API
 
 ---
 
-## Frontend with React
+# Frontend with React
