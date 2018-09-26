@@ -1,1 +1,139 @@
-# Develop Apps with Express + React
+export { default as theme } from "./theme";
+
+# Develop Applications with Express + React
+
+---
+
+## Project Structure
+
+- Choose your package manager
+- either `npm` or `yarn`
+- manage dependencies, scripts, meta-informations, ...
+- the first thing to look at is `package.json`
+
+---
+
+### Start a Project
+
+- run `yarn init` on an empty folder, this will generate `package.json`
+- add dependencies with `yarn add <library>`
+- add dev-dependencies with `yarn add --dev <library>`
+- run scripts with `yarn <script_name>`
+- install dependencies with `yarn`
+- add `node_modules` to `.gitignore`
+
+---
+
+### Typical package.json
+
+```json
+{
+  "name": "retro",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": { },
+  "dependencies": { },
+  "devDependencies": { },
+  "proxy": "http://localhost:8081"
+}
+```
+
+Read more at https://docs.npmjs.com/files/package.json
+
+---
+
+### Lockfiles
+
+- in order to get consistent installs across machines
+- lockfiles contain the exact version of each dependency
+- always commit to repository!
+- `yarn.lock` (yarn)
+- `package-lock.json` (npm)
+
+---
+
+## Backend with Express
+
+---
+
+### Setup
+
+- `yarn init`
+- `yarn add express`
+- `yarn add --dev nodemon`
+
+```
+"scripts": {
+  "start": "nodemon ./src/server.js"
+}
+```
+
+- `yarn start`
+
+---
+
+### Hello World
+
+
+```javascript
+const express = require("express");
+const http = require("http");
+
+// init express app and supply it to an http server
+const app = express();
+const server = http.createServer(app);
+
+app.get("/", (req, res) => {
+  res.send({ hello: "world" });
+});
+
+const port = 8081;
+server.listen(port, () => console.log(`Listening on port ${port}`));
+```
+
+---
+
+### Sample Project Structure
+
+```
+backend/
+  node_modules/
+  src/
+    public/
+    utils/
+    config/
+    db/
+    models/
+    server.js
+  package.json
+  processes.json
+  yarn.lock
+```
+
+---
+
+### HTTP-Verbs
+
+|Verb|Description|
+|---|---|
+|GET|should only retrieve data|
+|POST|used to submit an entity to the specified resource|
+|PUT|replaces all current representations of the target resource with the request payload|
+|PATCH|used to apply partial modifications to a resource|
+|DELETE|deletes the specified resource|
+
+---
+
+### Let's develop a REST API
+
+---
+
+### Testing your API
+
+---
+
+### Deploying your API
+
+---
+
+## Frontend with React
