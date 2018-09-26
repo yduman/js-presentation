@@ -1,0 +1,14 @@
+{
+  "name": "js-presentation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:yduman/js-presentation.git",
+  "author": "Yadullah Duman <yadullah.duman@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "mdx-deck deck.mdx"
+  },
+  "devDependencies": {
+    "mdx-deck": "^1.7.7"
+  }
+}
