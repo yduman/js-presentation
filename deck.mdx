@@ -1,30 +1,29 @@
-export { default as theme } from "./theme";
+import { Image } from "mdx-deck"
+import HappyHacking from "./HappyHacking"
+export { default as theme } from "./theme"
 
-# Workflow with Express & React
+<Image src="./assets/express_react.png" size="300" />
+
+---
+
+## Table of Contents
+
+- ``npm``, ``yarn``, ``package.json``, Lockfiles
+- Backend (Express, REST, MongoDB, Deployment, Testing)
+- Frontend (React, Main Concepts, Testing)
+- General Advice
 
 ---
 
 ## Package Manager
 
-- Choose your package manager
 - either `npm` or `yarn`
 - manage dependencies, scripts, meta-informations, ...
-- the first thing to look at is `package.json`
+- first thing to look at: `package.json`
 
 ---
 
-## Bootstrapping
-
-- run `yarn init`, this will generate `package.json`
-- add dependencies with `yarn add <library>`
-- add dev-dependencies with `yarn add --dev <library>`
-- run scripts with `yarn <script_name>`
-- install dependencies with `yarn`
-- add `node_modules` to `.gitignore`
-
----
-
-## Typical ``package.json``
+## Typical package.json
 
 ```json
 {
@@ -38,17 +37,27 @@ export { default as theme } from "./theme";
 }
 ```
 
-Read more at https://docs.npmjs.com/files/package.json
+https://docs.npmjs.com/files/package.json
+
+---
+
+## Bootstrapping
+
+- run `yarn init` on an empty folder
+- add dependencies with `yarn add <library>`
+- add dev-dependencies with `yarn add --dev <library>`
+- run scripts with `yarn <script_name>`
+- install dependencies with `yarn`
+- and please... add `node_modules` to `.gitignore`
 
 ---
 
 ## Lockfiles
 
-- in order to get consistent installs across machines
+- to get consistent installs across machines
 - lockfiles contain the exact version of each dependency
-- always commit to repository!
-- `yarn.lock`
-- `package-lock.json`
+- always commit!
+- `yarn.lock` or `package-lock.json`
 
 ---
 
@@ -99,16 +108,21 @@ server.listen(port, () => console.log(`Listening on port ${port}`));
 backend/
 |__ node_modules/
 |__ src/
-|   |__ public/
-|   |__ utils/
-|   |__ config/
-|   |__ db/
-|   |__ models/
-|   |__ server.js
+|   |__ config/       Environment config
+|   |__ db/           Database config
+|   |__ middleware/   Own middlewares
+|   |__ models/       DB Models
+|   |__ public/       Files you serve
+|   |__ routes/       REST routes
+|   |__ tests/        Unit Tests
+|   |__ utils/        Utility Functions
+|   |__ server.js     Server Root
 |__ package.json
-|__ processes.json
+|__ processes.json    PM2 config
 |__ yarn.lock
 ```
+
+http://react-file-structure.surge.sh/
 
 ---
 
@@ -116,11 +130,11 @@ backend/
 
 |Verb|Description|
 |---|---|
-|**GET**|should only retrieve data|
-|**POST**|used to submit an entity to the specified resource|
-|**PATCH**|used to apply partial modifications to a resource|
-|**PUT**|replaces all current representations of <br/> the target resource with the request payload|
-|**DELETE**|deletes the specified resource|
+|GET|should only retrieve data|
+|POST|used to submit an entity to the specified resource|
+|PATCH|used to apply partial modifications to a resource|
+|PUT|replaces all current representations of <br/> the target resource with the request payload|
+|DELETE|deletes the specified resource|
 
 ---
 
@@ -140,40 +154,125 @@ backend/
 
 |HTTP|Endpoint|Description|
 |---|---|---|
-|**GET**|/api/user/me|get logged in user|
-|**GET**|/api/user/:username|get user by username|
-|**POST**|/api/user/|user registration|
-|**POST**|/api/user/login|user login|
-|**PATCH**|/api/user/me|reset username|
-|**DELETE**|/api/user/:id|delete user by ID|
-|**DELETE**|/api/user/logout|user logout|
+|GET|/api/user/me|get logged in user|
+|GET|/api/user/:username|get user by username|
+|POST|/api/user/|user registration|
+|POST|/api/user/login|user login|
+|DELETE|/api/user/:id|delete user by ID|
+|DELETE|/api/user/logout|user logout|
 
 ---
 
 ## Setup
 
 - install MongoDB and Robo3T
-- create a folder where your backend will live in
-- run `yarn init` inside
-- run `yarn add express body-parser mongodb mongoose lodash jsonwebtoken`
-- run `yarn add --dev nodemon chai mocha supertest`
-- create a `src/` folder
-- create your root file, e.g. `server.js`
-- create your `start` script in `package.json`
+- get Postman or Insomnia
+
+```
+$ mkdir backend && cd backend
+$ yarn init
+$ yarn add express body-parser mongodb mongoose lodash jsonwebtoken bcryptjs
+$ yarn add --dev nodemon chai mocha supertest
+$ mkdir src && cd src && touch server.js
+// add start script...
+// edit server.js ...
+$ yarn start
+```
+---
+
+# Live Example
 
 ---
 
-- create `config/config.js`, to set some environment variables
-- create `db/mongoose.js`, to configure mongoose
+## Run Forever with PM2
 
----
+```json
+{
+  "apps": [{
+    "name": "UserManagement",
+    "script": "src/server.js",
+    "watch": "src/",
+    "ignore_watch": "src/uploads",
+    "log_date_format": "YYYY-MM-DD HH:mm Z"
+  }]
+}
+```
 
-## Testing your API
-
----
-
-## Deploying your API
+https://pm2.io/runtime/
 
 ---
 
 # Frontend with React
+
+---
+
+## Create React App
+
+- *"Create React apps with no build configuration."*
+- Version 2.0 is released since October 1st ❤️
+
+`npx create-react-app <app_name>`
+
+---
+
+# Main Concepts
+
+https://reactjs.org/docs/getting-started.html
+
+---
+
+## Components and Props
+
+Components let you split the UI into independent, reusable pieces, and think about each piece in isolation.
+
+---
+
+## State and Lifecycle
+
+---
+
+## Handling Events
+
+Handling events with React elements is very similar to handling events on DOM elements. There are some syntactic differences:
+
+- React events are named using camelCase, rather than lowercase.
+- With JSX you pass a function as the event handler, rather than a string.
+
+---
+
+## Conditional Rendering
+
+- In React, you can create distinct components that encapsulate behavior you need. Then, you can render only some of them, depending on the state of your application.
+
+---
+
+## Lists and Keys
+
+---
+
+## Forms
+
+---
+
+# Live Example
+
+---
+
+# Last Words
+
+- Learning by doing
+- Be curious
+- Google it
+- Use your notepad
+- Read Blogs
+- Check GitHub
+- Online Courses
+
+---
+
+<div>
+  <HappyHacking>
+    Happy Hacking! 👨‍‍💻
+  </HappyHacking>
+  <img src={"https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"} alt="cat hacking" width="400px" />
+</div>

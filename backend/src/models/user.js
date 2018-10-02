@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
@@ -59,6 +60,61 @@ UserSchema.methods.removeAuthToken = function() {
   const user = this;
   return user.update({ $pull: { tokens: { token } } });
 };
+
+UserSchema.statics.findByUsername = async function(username) {
+  try {
+    const User = this;
+    return await User.findOne({ username });
+  } catch (error) {
+    throw new Error("Couldn't find user by username.");
+  }
+};
+
+UserSchema.statics.findByToken = async function(token) {
+  const User = this;
+  let decoded;
+
+  try {
+    decoded = jwt.verify(token, "SomeSalt");
+  } catch (error) {
+    return Promise.reject();
+  }
+
+  return await User.findOne({
+    _id: decoded._id,
+    "tokens.token": token,
+    "tokens.access": "auth"
+  });
+};
+
+UserSchema.findByCredentials = function(email, password) {
+  const User = this;
+
+  return User.findOne({ email }).then(user => {
+    if (!user) return Promise.reject();
+
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(password, user.password, (err, res) => {
+        response ? resolve(user) : reject();
+      });
+    });
+  });
+};
+
+UserSchema.pre("save", function(next) {
+  let user = this;
+
+  if (user.isModified("password")) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        user.password = hash;
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+});
 
 const User = mongoose.model("User", UserSchema);
 

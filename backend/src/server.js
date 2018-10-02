@@ -8,13 +8,13 @@ const http = require("http");
 const app = express();
 const server = http.createServer(app);
 
-// body parsing middleware
-app.use(bodyParser.json());
+const userRoutes = require("./routes/user-routes");
 
-app.get("/", (req, res) => {
-  res.send({hello: "world"});
-});
+app.use(bodyParser.json());
+app.use("/api/user", userRoutes);
 
 const port = process.env.PORT;
 server.listen(port, () => console.log(`Listening on port ${port}`));
+
+module.exports = { app };
 

@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "mdx-deck": "^1.7.7"
+  },
+  "dependencies": {
+    "react-pose": "^3.3.6"
   }
 }
