@@ -1,8 +1,7 @@
-import { Image } from "mdx-deck"
-import HappyHacking from "./HappyHacking"
+import { Split } from 'mdx-deck/layouts'
 export { default as theme } from "./theme"
 
-<Image src="./assets/express_react.png" size="300" />
+<img src="./assets/express_react.png" />
 
 ---
 
@@ -11,7 +10,11 @@ export { default as theme } from "./theme"
 - ``npm``, ``yarn``, ``package.json``, Lockfiles
 - Backend (Express, REST, MongoDB, Deployment, Testing)
 - Frontend (React, Main Concepts, Testing)
-- General Advice
+- Last Words
+
+---
+
+# Package Manager
 
 ---
 
@@ -227,30 +230,276 @@ Components let you split the UI into independent, reusable pieces, and think abo
 
 ---
 
+### Functional and Class Components
+
+```jsx
+// Functional Component
+const Welcome = props => <h1>Hello, {props.name}</h1>;
+```
+
+```jsx
+// Class Component
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+```
+
+```jsx
+const App = () => <div><Welcome name="John" /></div>;
+ReactDOM.render(<App/>, document.getElementById("root"));
+```
+
+---
+
 ## State and Lifecycle
+
+<img src="./assets/react_lifecycle.PNG" />
+
+---
+
+## State
+
+```jsx
+class Clock extends React.Component {
+  state = { date: new Date() };
+
+  render() {
+    return (
+      <div>
+        <h1>Hello World!</h1>
+        <h2>It is { this.state.date.toLocaleTimeString() }</h2>
+      </div>
+    );
+  }
+}
+```
+
+---
+
+## State and Lifecycle
+
+```jsx
+class Clock extends React.Component {
+  state = { date: new Date() };
+  
+  componentDidMount() { 
+    this.timerID = setInterval(() => this.setState({ date: new Date() }), 1000); 
+  }
+  
+  componentWillUnmount() { 
+    clearInterval(this.timerID); 
+  }
+  
+  render() {
+    return (
+      <div>
+        <h2>It is { this.state.date.toLocaleTimeString() }</h2>
+      </div>
+    );
+  }
+}
+```
 
 ---
 
 ## Handling Events
-
-Handling events with React elements is very similar to handling events on DOM elements. There are some syntactic differences:
 
 - React events are named using camelCase, rather than lowercase.
 - With JSX you pass a function as the event handler, rather than a string.
 
 ---
 
+```jsx
+class Incrementer extends React.Component {
+  state = { counter: 0 };
+
+  handleClick = event => {
+    event.preventDefault();
+    
+    this.setState(prevState => {
+      return { counter: prevState.counter + 1 };
+    });
+  };
+
+  render() {
+    const { counter } = this.state;
+    return (
+      <div>
+        <p>{ counter }</p>
+        <button onClick={this.handleClick}>Increment</button>
+      </div>
+    );
+  }
+}
+```
+
+---
+
 ## Conditional Rendering
 
-- In React, you can create distinct components that encapsulate behavior you need. Then, you can render only some of them, depending on the state of your application.
+In React, you can create distinct components that encapsulate behavior you need. Then, you can render only some of them, depending on the state of your application.
+
+---
+
+## Conditional Rendering
+
+```jsx
+const UserGreeting = () => <h1>Welcome Back!</h1>;
+
+const GuestGreeting = () => <h1>Please sign up.</h1>;
+
+const Greeting = props => {
+  const isLoggedIn = props.isLoggedIn;
+  
+  if (isLoggedIn)
+    return <UserGreeting />;
+  
+  return <GuestGreeting />;
+}
+
+ReactDOM.render(<Greeting isLoggedIn={false} />, document.getElementById("root"));
+```
 
 ---
 
 ## Lists and Keys
 
+```jsx
+const NumberList = props => {
+  const numbers = props.numbers;
+  const listItems = numbers.map(num => <li key={num.toString()}>{ num }</li>);
+
+  return <ul>{ listItems }</ul>
+}
+
+const numbers = [1, 2, 3, 4, 5];
+ReactDOM.render(<NumberList numbers={numbers} />, document.getElementById("root"));
+```
+
+- Keys help React identify which items have changed, are added, or are removed. 
+- Keys should be given to the elements inside the array to give the elements a stable identity.
+
 ---
 
 ## Forms
+
+```jsx
+class NameForm extends React.Component {
+  state = { name: "" };
+  handleChange = event => this.setState({ name: event.target.value });
+  handleSubmit = event => {
+    event.preventDefault();
+    alert("Submitted Name: " + this.state.name);
+  };
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.name} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+---
+
+## Thinking in React
+
+1. Break the UI into a Component Hierarchy
+2. Build a static version in React
+3. Identify the minimal (but complete) representation of UI state
+4. Identify where your state should live
+5. Add inverse data flow
+
+https://reactjs.org/docs/thinking-in-react.html
+
+---
+
+export default Split
+
+<img src="./assets/component_hierarchy.PNG" width="600px" style={{marginLeft: "200px"}} />
+
+## Break the UI into a Component Hierarchy
+
+- ``FilterableProductTable`` (orange)
+- ``SearchBar`` (blue)
+- ``ProductTable`` (green)
+- ``ProductCategoryRow`` (turquoise)
+- ``ProductRow`` (red)
+
+---
+
+## Build a static version in React
+
+- Build a version that takes your data model and renders the UI but has no interactivity
+- Don't use state at all to build this static version
+- State is reserved only for interactivity, that is, data that changes over time
+- Pass data using ``props``
+
+---
+
+## Identify the minimal (but complete) representation of UI state
+
+- You first need to think of the minimal set of mutable state that your app needs (DRY!)
+- If you're for example building a TODO list, just keep an array of the TODO items around and don't keep a separate state variable for the count, just compute the length of the array
+
+---
+
+## Our Data
+
+- The original list of products
+- The search text the user has entered
+- The value of the checkbox
+- The filtered list of products
+
+---
+
+## Figure out State
+
+1. Is it passed in from a parent via props? If so, it probably isn’t state.
+2. Does it remain unchanged over time? If so, it probably isn’t state.
+3. Can you compute it based on any other state or props in your component? If so, it isn’t state.
+
+---
+
+## What remains
+
+- The search text the user has entered
+- The value of the checkbox
+
+---
+
+## Identify where your state should live
+
+- Identify every component that renders something based on that state
+- Find a common owner component
+- Either the common owner or another component higher up in the hierarchy should own the state
+
+---
+
+export default Split
+
+<img src="./assets/component_hierarchy.PNG" width="600px" style={{marginLeft: "200px"}} />
+
+## Our Example
+
+- `ProductTable` (green) needs to filter the product list based on state
+- `SearchBar` (blue) needs to display the search text and checked state
+- The common owner component is `FilterableProductTable` (orange)
+- It conceptually makes sense for the filter text and checked value to live in `FilterableProductTable`
+
+---
+
+## Add inverse data flow
+
+- Now it's time to support data flowing the other way
+- `FilterableProductTable` will pass callbacks to `SearchBar` that will call `setState()`
 
 ---
 
@@ -258,21 +507,34 @@ Handling events with React elements is very similar to handling events on DOM el
 
 ---
 
-# Last Words
+## Some Neat Libraries/Frameworks
 
-- Learning by doing
-- Be curious
-- Google it
-- Use your notepad
-- Read Blogs
-- Check GitHub
-- Online Courses
+- [react-testing-library](https://github.com/kentcdodds/react-testing-library)
+- [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
+- [react-responsive-modal](https://react-responsive-modal.leopradel.com/)
+- [react-fontawesome](https://github.com/FortAwesome/react-fontawesome)
+- [react-pose](https://popmotion.io/pose/)
+- [prop-types](https://www.npmjs.com/package/prop-types)
+- [@reach/router](https://reach.tech/router)
+- [mdx-deck](https://github.com/jxnblk/mdx-deck)
+- [styled-components](https://github.com/styled-components/styled-components)
+- [bulma](https://bulma.io/)
+- [material-ui](https://material-ui.com/)
 
 ---
 
-<div>
-  <HappyHacking>
-    Happy Hacking! 👨‍‍💻
-  </HappyHacking>
-  <img src={"https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"} alt="cat hacking" width="400px" />
-</div>
+# Last Words
+
+- Learning by doing 👩‍💻
+- Be curious, Try out new stuff! 🤓
+- Google is your friend 🔍
+- Use your notepad, if stuck 🗒️
+- Read Blogs 📰
+- Contribute to Open Source 💻
+- Online Courses 🎓
+
+---
+
+# Happy Hacking!
+
+<img src={"https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"} alt="cat hacking" width="600px" style={{marginLeft: "10px"}} />

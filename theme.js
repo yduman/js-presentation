@@ -4,7 +4,7 @@ import javascript from "react-syntax-highlighter/languages/prism/javascript";
 
 export default {
   ...swiss,
-  font: "Raleway, sans-serif",
+  font: "Roboto Condensed, sans-serif",
   colors: {
     text: "black",
     background: "white",
