@@ -87,7 +87,7 @@ UserSchema.statics.findByToken = async function(token) {
   });
 };
 
-UserSchema.findByCredentials = function(email, password) {
+UserSchema.statics.findByCredentials = function(email, password) {
   const User = this;
 
   return User.findOne({ email }).then(user => {
@@ -95,7 +95,7 @@ UserSchema.findByCredentials = function(email, password) {
 
     return new Promise((resolve, reject) => {
       bcrypt.compare(password, user.password, (err, res) => {
-        response ? resolve(user) : reject();
+        res ? resolve(user) : reject(err);
       });
     });
   });

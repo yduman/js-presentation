@@ -7,14 +7,15 @@ export { default as theme } from "./theme"
 
 ## Table of Contents
 
-- ``npm``, ``yarn``, ``package.json``, Lockfiles
-- Backend (Express, REST, MongoDB, Deployment, Testing)
-- Frontend (React, Main Concepts, Testing)
-- Last Words
+1. Package Managers
+2. Express Backend
+3. React Frontend
+4. Deployment
+5. General Advice
 
 ---
 
-# Package Manager
+# Package Managers 📦
 
 ---
 
@@ -64,7 +65,7 @@ https://docs.npmjs.com/files/package.json
 
 ---
 
-# Backend with Express
+# Express Backend 🖥️
 
 ---
 
@@ -110,12 +111,12 @@ server.listen(port, () => console.log(`Listening on port ${port}`));
 ```
 backend/
 |__ node_modules/
+|__ public/           Files you serve
 |__ src/
 |   |__ config/       Environment config
 |   |__ db/           Database config
 |   |__ middleware/   Own middlewares
 |   |__ models/       DB Models
-|   |__ public/       Files you serve
 |   |__ routes/       REST routes
 |   |__ tests/        Unit Tests
 |   |__ utils/        Utility Functions
@@ -141,11 +142,7 @@ http://react-file-structure.surge.sh/
 
 ---
 
-## Let's develop a REST API
-
----
-
-## Scenario
+## Let's create an API
 
 - we will manage users
 - usage of authentication and private routes
@@ -169,7 +166,7 @@ http://react-file-structure.surge.sh/
 ## Setup
 
 - install MongoDB and Robo3T
-- get Postman or Insomnia
+- install a REST Client
 
 ```
 $ mkdir backend && cd backend
@@ -183,7 +180,28 @@ $ yarn start
 ```
 ---
 
-# Live Example
+## Start MongoDB and Robo3T
+
+```bash
+#!/bin/bash
+mongod --dbpath /c/Users/yduman/mongo-data
+```
+
+```
+$ sh start-mongo.sh
+```
+
+---
+
+## REST Clients
+
+- e.g. Postman, Insomnia, ...
+
+<img src="./assets/postman_example.PNG" />
+
+---
+
+# Live Example 📺
 
 ---
 
@@ -205,7 +223,7 @@ https://pm2.io/runtime/
 
 ---
 
-# Frontend with React
+# React Frontend ⚛️
 
 ---
 
@@ -215,6 +233,27 @@ https://pm2.io/runtime/
 - Version 2.0 is released since October 1st ❤️
 
 `npx create-react-app <app_name>`
+
+---
+
+## Sample Project Structure
+
+```
+frontend/
+|__ node_modules/
+|__ package.json
+|__ public/
+|__ |__ favicon.ico
+|__ |__ index.html
+|__ |__ manifest.json
+|__ src/
+|   |__ components/   All components
+|   |__ styles/       All stylings
+|   |__ utils/        All utility functions
+|   |__ index.js
+|   |__ registerServiceWorker.js
+|__ yarn.lock
+```
 
 ---
 
@@ -503,11 +542,45 @@ export default Split
 
 ---
 
-# Live Example
+# Testing in React 💉
 
 ---
 
-## Some Neat Libraries/Frameworks
+## react-testing-library by Kent C. Dodds
+
+- encourages better testing practices
+- tests will work with the actual DOM, rather than rendered React components
+- query the DOM in the same way the user would
+- exposes a recommended way to find elements by a `data-testid`
+- [GitHub Repository](https://github.com/kentcdodds/react-testing-library)
+
+---
+
+## E2E-Testing with Cypress
+
+- [Cypress](https://www.cypress.io/)
+- [cypress-testing-library](https://github.com/kentcdodds/cypress-testing-library)
+
+---
+
+# Deployment ⬆️
+
+---
+
+- build your Frontend with `yarn build`
+- move built files to the `public` folder of your Backend
+- add `app.use(express.static('public'))` to your `server.js`
+- deploy it somewhere and manage it with PM2
+
+---
+
+# Live Example 📺
+
+---
+
+# Some Neat Libraries 📚
+
+---
 
 - [react-testing-library](https://github.com/kentcdodds/react-testing-library)
 - [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
@@ -520,18 +593,21 @@ export default Split
 - [styled-components](https://github.com/styled-components/styled-components)
 - [bulma](https://bulma.io/)
 - [material-ui](https://material-ui.com/)
+- and much more :) 
 
 ---
 
-# Last Words
+# Some Advice 🧙
 
-- Learning by doing 👩‍💻
-- Be curious, Try out new stuff! 🤓
-- Google is your friend 🔍
-- Use your notepad, if stuck 🗒️
-- Read Blogs 📰
-- Contribute to Open Source 💻
-- Online Courses 🎓
+---
+
+- 👩‍💻 Learning by doing!
+- 🤓 Be curious, try out new stuff!
+- 🔍 Google is your friend
+- 📝 Use your notepad, if stuck
+- 📰 Read Blogs
+- 💻 Contribute to Open Source
+- 🎓 Online Courses
 
 ---
 
