@@ -56,9 +56,9 @@ UserSchema.methods.createAuthToken = function() {
   });
 };
 
-UserSchema.methods.removeAuthToken = function() {
+UserSchema.methods.removeAuthToken = async function(token) {
   const user = this;
-  return user.update({ $pull: { tokens: { token } } });
+  await user.update({ $pull: { tokens: { token } } });
 };
 
 UserSchema.statics.findByUsername = async function(username) {

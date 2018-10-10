@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon ./src/server.js",
-    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha src/**/*.test.js"
+    "test": "export NODE_ENV=TEST || SET \"NODE_ENV=TEST\" && mocha --timeout 10000 src/**/*.test.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

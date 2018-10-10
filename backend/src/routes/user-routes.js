@@ -5,7 +5,7 @@ const { User } = require("../models/user");
 const { auth } = require("../middleware/auth");
 
 // GET /api/user/me
-router.get("/me", auth, async (req, res) => res.send(req.user));
+router.get("/me", auth, (req, res) => res.send(req.user));
 
 // GET /api/user/:username
 router.get("/:username", auth, async (req, res) => {
@@ -70,6 +70,7 @@ router.delete("/logout", auth, async (req, res) => {
     await req.user.removeAuthToken(req.token);
     res.status(200).send();
   } catch (error) {
+    console.log("ERROR :: ", error);
     res.status(400).send();
   }
 });

@@ -1,8 +1,7 @@
 const request = require("supertest");
 const { expect } = require("chai");
-const { ObjectID } = require("mongodb");
 
-const app = require("../server");
+const { app } = require("../server");
 const { User } = require("../models/user");
 const { user1, user2, populateUsers } = require("./seed");
 
@@ -27,7 +26,7 @@ describe("User Tests", () => {
 
     it("should return 401 if not authenticated", done => {
       request(app)
-        .get("api/user/me")
+        .get("/api/user/me")
         .expect(401)
         .expect(res => {
           expect(res.body).to.be.empty;
@@ -52,11 +51,11 @@ describe("User Tests", () => {
         .end(done);
     });
 
-    it("should return 400 if user was not found", done => {
+    it("should return 404 if user was not found", done => {
       request(app)
         .get("/api/user/someusername")
         .set("x-auth", user2.tokens[0].token)
-        .expect(400)
+        .expect(404)
         .end(done);
     });
   });
@@ -65,16 +64,16 @@ describe("User Tests", () => {
     it("should create user", done => {
       const email = "max@mustermann.com";
       const password = "maxmustermann123";
-      const username = "MaxMustermann";
+      const username = "MaxMusti";
 
       request(app)
-        .post("/api/user")
+        .post("/api/user/")
         .send({ email, password, username })
         .expect(200)
         .expect(res => {
           expect(res.headers["x-auth"]).to.exist;
           expect(res.body._id).to.exist;
-          expect(res.body.email).to.be.email;
+          expect(res.body.email).to.equal(email);
         })
         .end(error => {
           if (error) return done(error);
@@ -82,28 +81,9 @@ describe("User Tests", () => {
           User.findOne({ email })
             .then(user => {
               expect(user).to.exist;
-              expect(user.password).to.not.be.password;
-              expect(user.username).to.be.username;
-              expect(user.email).to.be.email;
-              done();
-            })
-            .catch(error => done(error));
-        });
-    });
-  });
-
-  describe("DELETE /api/user/logout", () => {
-    it("should remove token on logout", done => {
-      request(app)
-        .delete("/api/user/logout")
-        .set("x-auth", user1.tokens[0].token)
-        .expect(200)
-        .end(error => {
-          if (error) return done(error);
-
-          User.findById(user1._id)
-            .then(user => {
-              expect(user.tokens.length).to.equal(0);
+              expect(user.password).to.not.equal(password);
+              expect(user.username).to.equal(username);
+              expect(user.email).to.equal(email);
               done();
             })
             .catch(error => done(error));

@@ -33,7 +33,7 @@ const user2 = {
 };
 
 const populateUsers = done => {
-  User.remove({})
+  User.deleteMany({})
     .then(() => {
       const u1 = new User(user1).save();
       const u2 = new User(user2).save();
@@ -42,5 +42,6 @@ const populateUsers = done => {
     })
     .then(() => done());
 };
+
 
 module.exports = { user1, user2, populateUsers };
