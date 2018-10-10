@@ -21,47 +21,63 @@ export { default as theme } from "./theme"
 
 ## Package Manager
 
-- either `npm` or `yarn`
+- use `npm` or `yarn`
 - manage dependencies, scripts, meta-informations, ...
-- first thing to look at: `package.json`
+- `package.json` is the first thing to look at
 
 ---
 
-## Typical package.json
+## Sample package.json
 
 ```json
 {
-  "name": "retro",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": { },
-  "dependencies": { },
-  "devDependencies": { },
-  "proxy": "http://localhost:8081"
+  "name": "js-presentation",
+  "version": "1.0.0",
+  "repository": "git@github.com:yduman/js-presentation.git",
+  "author": "Yadullah Duman <yadullah.duman@gmail.com>",
+  "scripts": {
+    "start": "mdx-deck deck.mdx"
+  },
+  "devDependencies": {
+    "mdx-deck": "^1.7.7"
+  },
+  "dependencies": { ... },
+  "proxy": "..."
 }
 ```
 
-https://docs.npmjs.com/files/package.json
+[Documentation](https://docs.npmjs.com/files/package.json)
 
 ---
 
-## Bootstrapping
+## How The Proxy Works
 
-- run `yarn init` on an empty folder
-- add dependencies with `yarn add <library>`
-- add dev-dependencies with `yarn add --dev <library>`
-- run scripts with `yarn <script_name>`
-- install dependencies with `yarn`
-- and please... add `node_modules` to `.gitignore`
+<img src="./assets/proxy.PNG" width="1200px" />
+
+---
+
+## Common Commands
+
+|Command|Description|
+|---|---|
+|`yarn init`|create a package.json file|
+|`yarn add <lib>`|add a dependency|
+|`yarn add --dev <lib>`|add a dev-dependency|
+|`yarn <script_name>`|run a script|
+|`yarn`|install dependencies|
+
+- ⚠️ add `node_modules` to `.gitignore`
 
 ---
 
 ## Lockfiles
 
-- to get consistent installs across machines
-- lockfiles contain the exact version of each dependency
-- always commit!
 - `yarn.lock` or `package-lock.json`
+- ensure consistent installs across machines
+- lockfiles contain the exact version of each dependency
+
+
+- ⚠️ always commit to your repository!
 
 ---
 
@@ -69,11 +85,12 @@ https://docs.npmjs.com/files/package.json
 
 ---
 
-## Setup
+## Basic Setup
 
 - `yarn init`
 - `yarn add express`
 - `yarn add --dev nodemon`
+- `yarn start`
 
 ```json
 "scripts": {
@@ -81,7 +98,6 @@ https://docs.npmjs.com/files/package.json
 }
 ```
 
-- `yarn start`
 
 ---
 
@@ -126,7 +142,7 @@ backend/
 |__ yarn.lock
 ```
 
-http://react-file-structure.surge.sh/
+- [How to structure files?](http://react-file-structure.surge.sh/)
 
 ---
 
@@ -134,19 +150,23 @@ http://react-file-structure.surge.sh/
 
 |Verb|Description|
 |---|---|
-|GET|should only retrieve data|
-|POST|used to submit an entity to the specified resource|
-|PATCH|used to apply partial modifications to a resource|
-|PUT|replaces all current representations of <br/> the target resource with the request payload|
-|DELETE|deletes the specified resource|
+|``GET``|should only retrieve data|
+|``POST``|used to submit an entity to the specified resource|
+|``PATCH``|used to apply partial modifications to a resource|
+|``PUT``|replaces all current representations of <br/> the target resource with the request payload|
+|``DELETE``|deletes the specified resource|
 
 ---
 
-## Let's create an API
+## Let's create an API!
 
-- we will manage users
-- usage of authentication and private routes
-- usage of MongoDB and Mongoose ODM
+- Backend for managing users
+- We'll use some sort of authentication
+- We'll use MongoDB along with Mongoose ODM
+
+
+- [MongoDB Docs](https://docs.mongodb.com/)
+- [Mongoose](https://mongoosejs.com/)
 
 ---
 
@@ -154,12 +174,12 @@ http://react-file-structure.surge.sh/
 
 |HTTP|Endpoint|Description|
 |---|---|---|
-|GET|/api/user/me|get logged in user|
-|GET|/api/user/:username|get user by username|
-|POST|/api/user/|user registration|
-|POST|/api/user/login|user login|
-|DELETE|/api/user/:id|delete user by ID|
-|DELETE|/api/user/logout|user logout|
+|``GET``|/api/user/me|get logged in user|
+|``GET``|/api/user/:username|get user by username|
+|``POST``|/api/user/|user registration|
+|``POST``|/api/user/login|user login|
+|``DELETE``|/api/user/:id|delete user by ID|
+|``DELETE``|/api/user/logout|user logout|
 
 ---
 
@@ -182,6 +202,8 @@ $ yarn start
 
 ## Start MongoDB and Robo3T
 
+- Create a script that will start your DB server
+
 ```bash
 #!/bin/bash
 mongod --dbpath /c/Users/yduman/mongo-data
@@ -191,11 +213,13 @@ mongod --dbpath /c/Users/yduman/mongo-data
 $ sh start-mongo.sh
 ```
 
+- Start Robo3T and connect to your local DB server
+
 ---
 
 ## REST Clients
 
-- e.g. Postman, Insomnia, ...
+- e.g. [Postman](https://www.getpostman.com/), [Insomnia](https://insomnia.rest/), ...
 
 <img src="./assets/postman_example.PNG" />
 
@@ -219,7 +243,7 @@ $ sh start-mongo.sh
 }
 ```
 
-https://pm2.io/runtime/
+- [PM2](https://pm2.io/runtime/)
 
 ---
 
@@ -257,9 +281,7 @@ frontend/
 
 ---
 
-# Main Concepts
-
-https://reactjs.org/docs/getting-started.html
+# Main Concepts ☝️
 
 ---
 
@@ -452,11 +474,11 @@ class NameForm extends React.Component {
 
 1. Break the UI into a Component Hierarchy
 2. Build a static version in React
-3. Identify the minimal (but complete) representation of UI state
+3. Identify the minimal representation of UI state
 4. Identify where your state should live
 5. Add inverse data flow
 
-https://reactjs.org/docs/thinking-in-react.html
+[Source](https://reactjs.org/docs/thinking-in-react.html)
 
 ---
 
@@ -478,24 +500,25 @@ export default Split
 
 - Build a version that takes your data model and renders the UI but has no interactivity
 - Don't use state at all to build this static version
-- State is reserved only for interactivity, that is, data that changes over time
+- State is reserved only for interactivity
 - Pass data using ``props``
 
 ---
 
-## Identify the minimal (but complete) representation of UI state
+## Identify the minimal representation of UI state
 
-- You first need to think of the minimal set of mutable state that your app needs (DRY!)
+- Don't Repeat Yourself
+- Think of the minimal set of mutable state that your app needs
 - If you're for example building a TODO list, just keep an array of the TODO items around and don't keep a separate state variable for the count, just compute the length of the array
 
 ---
 
 ## Our Data
 
-- The original list of products
-- The search text the user has entered
-- The value of the checkbox
-- The filtered list of products
+1. The original list of products
+2. The search text the user has entered
+3. The value of the checkbox
+4. The filtered list of products
 
 ---
 
@@ -509,8 +532,8 @@ export default Split
 
 ## What remains
 
-- The search text the user has entered
-- The value of the checkbox
+2. The search text the user has entered
+3. The value of the checkbox
 
 ---
 
@@ -552,14 +575,30 @@ export default Split
 - tests will work with the actual DOM, rather than rendered React components
 - query the DOM in the same way the user would
 - exposes a recommended way to find elements by a `data-testid`
-- [GitHub Repository](https://github.com/kentcdodds/react-testing-library)
+
+
+- [GitHub](https://github.com/kentcdodds/react-testing-library)
+- [TDD with react-testing-library](https://www.youtube.com/watch?v=kCR3JAR7CHE)
 
 ---
 
 ## E2E-Testing with Cypress
 
-- [Cypress](https://www.cypress.io/)
-- [cypress-testing-library](https://github.com/kentcdodds/cypress-testing-library)
+```javascript
+describe('My First Test', () => {
+  it('Gets, types and asserts', () => {
+    cy.visit('https://example.cypress.io')
+    cy.contains('type').click()
+    cy.url().should('include', '/commands/actions')
+    cy.get('.action-email')
+      .type('fake@email.com')
+      .should('have.value', 'fake@email.com')
+  })
+})
+```
+
+- [Website](https://www.cypress.io/)
+- [cypress-testing-library by Kent C. Dodds](https://github.com/kentcdodds/cypress-testing-library)
 
 ---
 
@@ -567,10 +606,18 @@ export default Split
 
 ---
 
-- build your Frontend with `yarn build`
-- move built files to the `public` folder of your Backend
-- add `app.use(express.static('public'))` to your `server.js`
+## Deployment
+
+- build your React App with `yarn build`
+- move built files to the `public` folder of your Express App
 - deploy it somewhere and manage it with PM2
+
+```javascript
+// server.js
+// ...
+app.use(express.static(__dirname + "/public"))
+// ...
+```
 
 ---
 
@@ -593,7 +640,7 @@ export default Split
 - [styled-components](https://github.com/styled-components/styled-components)
 - [bulma](https://bulma.io/)
 - [material-ui](https://material-ui.com/)
-- and much more :) 
+- and much more 😉
 
 ---
 
@@ -607,7 +654,7 @@ export default Split
 - 📝 Use your notepad, if stuck
 - 📰 Read Blogs
 - 💻 Contribute to Open Source
-- 🎓 Online Courses
+- 🎓 Participate on Online Courses
 
 ---
 
