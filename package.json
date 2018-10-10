@@ -4,7 +4,8 @@
   "repository": "git@github.com:yduman/js-presentation.git",
   "author": "Yadullah Duman <yadullah.duman@gmail.com>",
   "scripts": {
-    "start": "mdx-deck deck.mdx"
+    "start": "mdx-deck deck.mdx",
+    "pdf": "mdx-deck pdf deck.mdx"
   },
   "devDependencies": {
     "mdx-deck": "^1.7.7"
